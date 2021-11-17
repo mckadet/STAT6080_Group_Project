@@ -5,14 +5,17 @@ library(imagefx)
 library(pdftools)
 library(magick)
 library(tidyverse)
+library(RColorBrewer)
 
-file.list <- list.files("C:/Users/n8nel/Desktop/STAT 5080/Project/STAT6080_Group_Project/Renamed JPGs", pattern = "*.jpg", full.names = TRUE)
-
-file.name <- gsub("C:/Users/n8nel/Desktop/STAT 5080/Project/STAT6080_Group_Project/Renamed JPGs/", "", file.list)
-
+# SET THIS DIRECTORY TO WHERE YOU HAVE THE FILES STORED ON YOUR COMPUTER
 directory <- "C:/Users/n8nel/Desktop/STAT 5080/Project/STAT6080_Group_Project/Renamed JPGs/"
+
+# Grabbing all of the JPGs from the directory that you gave and making a data.frame from them.
+file.list <- list.files(directory, pattern = "*.jpg", full.names = TRUE)
+file.name <- gsub(directory, "", file.list)
 df <- data.frame(file.name) 
 
+# for loop to create the dataframe from the files in the directory.
 for (i in 1:length(file.name)) {
   df$s.date[i] <- substr(df$file.name[i], 1, 10)
   df$e.date[i] <- substr(df$file.name[i], 12, 21)
@@ -39,6 +42,8 @@ for (i in 1:length(file.name)) {
   df$d4[i] <- paste0(directory, df$file.name[i]) %>% image_read() %>% image_crop(geometry = geometry_area(width = 290, height = 393, x_off = 871, y_off = 1180)) %>% ocr()
 }
 
+# This pivots the data.frame into a tidy format and also removeds the \n characters and 
+# any line that doesn't have a % symbol.
 pivot.df <- df %>% 
   pivot_longer(cols = a1:d4,
                names_to = "location",
@@ -46,5 +51,8 @@ pivot.df <- df %>%
   filter(grepl("%", OCR)) %>%
   mutate(OCR = gsub("\n", " ", OCR))
 
+# Using this to find words that come up a lot so we can look at specific words if we would like.
+wordcloud(pivot.df$OCR) 
 
-         
+# We may want to remove the ® symbol since it appears so often, if not we could 
+# use it to get brand names perhaps.
