@@ -39,6 +39,12 @@ for (i in 1:length(file.name)) {
   df$d4[i] <- paste0(directory, df$file.name[i]) %>% image_read() %>% image_crop(geometry = geometry_area(width = 290, height = 393, x_off = 871, y_off = 1180)) %>% ocr()
 }
 
+pivot.df <- df %>% 
+  pivot_longer(cols = a1:d4,
+               names_to = "location",
+               values_to = "OCR") %>%
+  filter(grepl("%", OCR)) %>%
+  mutate(OCR = gsub("\n", " ", OCR))
 
-df$c3[5]
 
+         
