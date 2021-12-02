@@ -25,7 +25,7 @@ for (i in 1:length(data$OCR)) {
   data$Brand[i] <- data$OCR[i]
   data$Brand[i] %>%
     # Added more to the regular expression to capture more special cases (Ragan)
-    gregexpr("([[:space:]][[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}®", .) %>%
+    gregexpr("([[:space:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}®", .) %>%
     regmatches(data$OCR[i], .) -> data$Brand[i]
   
   # Save Variable 
