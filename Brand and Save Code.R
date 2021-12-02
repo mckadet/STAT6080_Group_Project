@@ -18,10 +18,14 @@ data$perc <- ""
 ## Variable Creation via for loop.
 
 for (i in 1:length(data$OCR)) {
+  # Cleaning up some weird characters I noticed (Ragan)
+  data$OCR[i] %>%
+    gsub("\\”[[:space:]]", " ", .) -> data$OCR[i]
   # Brand Variable
   data$Brand[i] <- data$OCR[i]
   data$Brand[i] %>%
-    gregexpr("([[:space:]][[:alpha:]]+){1,3}®", .) %>%
+    # Added more to the regular expression to capture more special cases (Ragan)
+    gregexpr("([[:space:]][[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}®", .) %>%
     regmatches(data$OCR[i], .) -> data$Brand[i]
   
   # Save Variable 
