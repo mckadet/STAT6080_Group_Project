@@ -13,6 +13,7 @@ data <- pivot.df
 ## Initializing variables
 data$Brand <- ""
 data$Save <- ""
+data$BrandName <- ""
 data$perc <- ""
 
 ## Variable Creation via for loop.
@@ -28,6 +29,11 @@ for (i in 1:length(data$OCR)) {
     gregexpr("([[:space:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}®", .) %>%
     regmatches(data$OCR[i], .) -> data$Brand[i]
   
+  data$BrandName[i] <- data$Brand[i]
+  data$BrandName[[i]][1] %>% 
+    gsub("®", "", .) %>% 
+    gsub("^ | $", "", .) -> data$BrandName[i]
+  
   # Save Variable 
   data$Save[i] <- data$OCR[i]
   data$Save[i] %>%
@@ -37,7 +43,7 @@ for (i in 1:length(data$OCR)) {
   # perc variable
   data$perc[i] <- data$Save[[i]][1] %>% gsub("%", "",.)
 }
-
+Brand <- data
 
 ## Reformatting variables to the correct class
 data$s.date <- as.Date(data$s.date, format =  "%m-%d-%Y")
