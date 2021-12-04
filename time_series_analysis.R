@@ -5,6 +5,7 @@ library(tidyverse)
 library(wordcloud)
 library(plyr)
 library(gridExtra)
+library(reshape2)
 
 ## Methods
 get_trend_plot <- function(dataset, title, log = FALSE){
@@ -40,6 +41,8 @@ Brand %>%
   filter(BrandName == "Nabisco") -> nabisco
 Brand %>% 
   filter(BrandName == "Kellogg's") -> kellogg
+Brand %>% 
+  filter(BrandName == "Kraft") -> kraft
 
 # covid
 nabisco %>% 
@@ -56,6 +59,8 @@ nabisco %>%
   filter(s.date >= "2021-01-01") -> n.recent
 kellogg %>% 
   filter(s.date >= "2021-01-01") -> k.recent
+kraft %>% 
+  filter(s.date >= "2021-01-01") -> kr.recent
 
 
 
@@ -65,6 +70,7 @@ kellogg %>%
 # Un-logged
 get_trend_plot(nabisco, "Overall Trend in Percent Off for Nabisco")
 get_trend_plot(kellogg, "Overall Trend in Percent Off for Kellogg")
+get_trend_plot(kraft, "Overall Trend in Percent Off for Kraft")
 
 n1 <- get_trend_plot(n.pre.covid, "Trend for Nabisco Pre-Covid")
 n2 <- get_trend_plot(n.post.covid, "Trend for Nabisco Post-Covid")
@@ -74,8 +80,13 @@ k1 <- get_trend_plot(k.pre.covid, "Trend for Nabisco Pre-Covid")
 k2 <- get_trend_plot(k.post.covid, "Trend for Nabisco Post-Covid")
 grid.arrange(k1, k2, nrow = 1)
 
+kr1 <- get_trend_plot(k.pre.covid, "Trend for Kraft Pre-Covid")
+kr2 <- get_trend_plot(k.post.covid, "Trend for Kraft Post-Covid")
+grid.arrange(kr1, kr2, nrow = 1)
+
 get_trend_plot(n.recent, "Recent Trend in Percent Off for Nabisco")
 get_trend_plot(k.recent, "Recent Trend in Percent Off for Kellogg")
+get_trend_plot(kr.recent, "Recent Trend in Percent Off for Kraft")
 
 
 # Logged
@@ -95,6 +106,7 @@ get_trend_plot(k.recent, "Recent Trend in Logged Percent Off for Kellogg", log =
 
 
 
+################################# NABISCO ######################################
 ## Analysis for Nabisco with a linear regression model
 n.lm <- lm(perc ~ s.date, data = n.recent)
 summary(n.lm)
@@ -109,7 +121,6 @@ ggplot(data = ACF.dframe, aes(x = Lag, y = ACF)) +
 
 
 
-
 ## Analysis for Nabisco using time series
 n.ts <- ts(data = n.recent$perc, start=c(1,1), frequency=1)
 X <- model.matrix(n.ts ~ -1 + s.date, data = n.recent)
@@ -117,8 +128,6 @@ X <- model.matrix(n.ts ~ -1 + s.date, data = n.recent)
 # Create Sarima Model
 auto.arima(n.ts, max.p=1, max.q=1, max.P=1, max.Q=1, d=0, D=0, ic="aic", stepwise=FALSE, xreg=X)
 my.sarima.model <- Arima(n.ts, order = c(2,0,0), seasonal=c(0,1,1), xreg = X)
-
-
 
 
 ## Check Assumptions and fit model
@@ -148,9 +157,6 @@ plot(dens, xlab = "Decorrelated Residuals",main = "Density Plot of Decorrelated 
 
 
 
-
-
-
 ## Validate Predictions
 #Split into test and training set
 n.test <- tail(n.recent, n = 10)
@@ -175,3 +181,32 @@ coverage
 ## Predict for 
 preds <- forecast(my.sarima.model, h = 10, xreg = X.test + 10, level = .95)
 plot(preds, main="Predicted Percent Off for Nabisco", ylab = "Percent Off", xlab = "Date")
+
+
+################################# KRAFT ######################################
+# Seperate into years
+kraft %>% 
+  filter((s.date >= "2019-01-01") & (s.date <= "2019-12-31")) %>% 
+  select(s.date, perc) -> kr.2019
+kraft %>% 
+  filter((s.date >= "2020-01-01") & (s.date <= "2020-12-31")) %>% 
+  select(s.date, perc) -> kr.2020
+kraft %>% 
+  filter((s.date >= "2021-01-01") & (s.date <= "2021-12-31")) %>% 
+  select(s.date, perc) -> kr.2021
+
+newData <- melt(list(kr.2019 = kr.2019, kr.2020 = kr.2020, kr.2021 = kr.2021), id.vars = "s.date")
+
+
+# Plot years
+ggplot(newData, aes(x = s.date, y = value, colour = L1)) + geom_point() + 
+  geom_smooth(method = "lm") +
+  geom_line() +
+  # geom_line(aes(color = variable, linetype = variable)) + 
+  scale_color_manual(values = c("darkred", "steelblue", "green")) + theme_minimal()
+
+ggplot(kr.recent, aes(x = s.date, y = perc)) + geom_point(position = position_jitter()) + 
+  geom_smooth(method = "loess") +
+  ggtitle("Percent Off Offered for Kraft in 2021") +
+  theme_minimal()
+  
