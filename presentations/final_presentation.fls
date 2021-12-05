@@ -1,6 +1,6 @@
-PWD c:\Users\c7262\My_Documents\School\Fall2021\STAT6080\final-project\STAT6080_Group_Project\presentations
+PWD c:\Users\c7262\My_Documents\School\Fall2021\STAT6080\STAT6080_Group_Project\presentations
 INPUT C:\Users\c7262\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\c7262\My_Documents\School\Fall2021\STAT6080\final-project\STAT6080_Group_Project\presentations\final_presentation.tex
+INPUT c:\Users\c7262\My_Documents\School\Fall2021\STAT6080\STAT6080_Group_Project\presentations\final_presentation.tex
 OUTPUT final_presentation.log
 INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamer.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamer.cls
@@ -1074,7 +1074,40 @@ INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\helvet.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\helvet.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\helvet.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemedefault.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerthemeDresden.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamerouterthememiniframes.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\beamer\beamercolorthemewhale.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\t1phv.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\t1phv.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\t1phv.fd
@@ -1110,22 +1143,6 @@ INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
-INPUT C:\Program Files\MiKTeX\tex\generic\infwarerr\infwarerr.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Program Files\MiKTeX\tex\generic\infwarerr\infwarerr.sty
-INPUT C:\Program Files\MiKTeX\tex\generic\kvdefinekeys\kvdefinekeys.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\kvoptions\kvoptions.sty
-INPUT C:\Program Files\MiKTeX\tex\generic\pdftexcmds\pdftexcmds.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
@@ -1216,34 +1233,11 @@ INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi6.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsa.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsb.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsb.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsb.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsb.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvro8t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvro8t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvro8t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
+INPUT .\final_presentation.toc
+INPUT final_presentation.toc
+INPUT final_presentation.toc
 OUTPUT final_presentation.nav
 OUTPUT final_presentation.toc
 OUTPUT final_presentation.snm
@@ -1251,7 +1245,5 @@ INPUT final_presentation.aux
 INPUT .\final_presentation.out
 INPUT .\final_presentation.out
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\base\8r.enc
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\helvetic\uhvr8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\helvetic\uhvr8a.pfb

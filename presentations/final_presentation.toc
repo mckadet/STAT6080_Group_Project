@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Abstract}{3}{0}{1}
+\beamer@sectionintoc {2}{Data Collection}{4}{0}{2}
+\beamer@sectionintoc {3}{Data Cleaning}{5}{0}{3}
+\beamer@sectionintoc {4}{Analysis}{6}{0}{4}
+\beamer@sectionintoc {5}{Results}{8}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{9}{0}{6}
+\beamer@sectionintoc {7}{References}{10}{0}{7}

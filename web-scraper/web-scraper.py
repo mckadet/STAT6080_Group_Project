@@ -20,7 +20,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from re import search
 from time import sleep
 from random import random
-import file
 import urllib.request
 
 url = "https://weekly-ads.us/archive/commissary"
@@ -37,8 +36,8 @@ for link in links: # check each link in list of all links
 
 
 
-driver2 = webdriver.Chrome()
-driver2.get(link_urls[1])
+driver2 = webdriver.Chrome() # initializing multiple drivers prevents IP blocking
+driver2.get(link_urls[1]) # follow first link that follows date format
 ad_links = driver2.find_elements_by_xpath("//div[@class = 'leaflet-detail']/a[starts-with(@href, '/commissary-ads/flyer-')][1]")
 
 for link in ad_links:
@@ -46,11 +45,10 @@ for link in ad_links:
 
 # Single Ad Multiple Pages for each page
 driver3 = webdriver.Chrome()
-driver3.maximize_window()
-image_urls = []
+image_urls = [] # initialize list of url's leading to jpegs to be downloaded in bash
 
 for link in ad_links:
+    driver3.implicitly_wait(0.5) #rapid requests trigger IP blocking, wait .5 seconds
+    driver3.get(link.get_attribute('href')) # retrieve url to jpeg
     driver3.implicitly_wait(0.5)
-    driver3.get(link.get_attribute('href'))
-    driver3.implicitly_wait(0.5)
-    image_urls.append(driver3.find_element_by_id("leaflet").get_attribute('src'))
+    image_urls.append(driver3.find_element_by_id("leaflet").get_attribute('src'))# ad to jpeg's url to list
