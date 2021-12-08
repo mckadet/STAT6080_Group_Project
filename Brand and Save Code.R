@@ -2,7 +2,8 @@ library(ggplot2)
 library(tidyverse)
 library(gridExtra)
 library(wordcloud)
-
+library(knitr)
+library(kableExtra)
 
 ## Creating Mode Function
 getmode <- function(v) {
@@ -160,22 +161,26 @@ wordcloud(data$BrandName)
 wordcloud((data %>% filter(p.num == 1))$BrandName)
 
 ## Top ten brands overall
-data %>%
+top.brands.overall <- data %>%
   filter(!is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
   summarize(med.perc = median(perc),
             n = n()) %>%
   arrange(desc(n)) %>%
-  top_n(8)
+  top_n(8) %>%
+  kable(caption = "Top Brands Overall") %>%
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
 
 ## Top ten brands on page 1
-data %>%
+top.brands.pg1 <- data %>%
   filter(p.num == 1 & !is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
   summarize(med.perc = median(perc),
             n = n()) %>%
   arrange(desc(n)) %>%
-  top_n(8)
+  top_n(8) %>%
+  kable(caption = "Top Brands on Page 1") %>%
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
   # What is interesting to note from the past two dataframes is that while some of 
   # the top brands are the same, not all of them are.  Nabisco has by far the most
   # ads, however they are only on the first page in the fourth spot.  Several brands,
