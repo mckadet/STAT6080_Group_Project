@@ -91,53 +91,46 @@ s.date.pages <- data %>%
   group_by(s.date) %>%
   summarize(median.n = mean(n))
 
-## Plotting percentage with a simple lm regression line.
-ggplot(data, aes(s.date, perc)) +
-  geom_point() +
-  geom_smooth(method='lm')
-
 ## Plotting s.data summary points for all pages and ad matrices
-
-gg.mean.perc.overall <- ggplot(s.date.summary, aes(s.date, mean.perc)) +
-  geom_point() +
-  geom_smooth(method='lm')
-  # Appears to be fairly constant, slightly higher towards the present
-
-gg.mode.perc.overall <- ggplot(s.date.summary, aes(s.date, mode.perc)) +
-  geom_point() +
-  geom_smooth(method='lm')
-  # Also slightly increasing towards the present.  Most common percent off is 20% almost 
-  # consistently after the pandemic.  Before the pandemic it was mostly 20 or 15.
 
 gg.median.perc.overall <- ggplot(s.date.summary, aes(s.date, median.perc)) +
   geom_point() +
-  geom_smooth(method='lm')
+  geom_smooth(method='lm') +
+  scale_x_date(labels = date_format("%b-%Y")) +
+  ggtitle("Median Percentage Off of All Products") +
+  xlab("Ad Start Date") +
+  ylab("Median Percentage Off") +
+  scale_y_continuous(breaks = seq(0, 60, 10), limits = c(0, 60))
   # basically no change.  Median is higher than the general mode.
 
-grid.arrange(gg.mean.perc.overall, gg.mode.perc.overall, gg.median.perc.overall, nrow = 1)
+gg.median.perc.overall
 
 gg.n.overall <- ggplot(s.date.summary, aes(s.date, n)) +
   geom_point() +
   geom_smooth(method='lm') +
-  ggtitle("Number of products in an ad")
+  scale_x_date(labels = date_format("%b-%Y")) +
+  xlab("Ad Start Date") +
+  ylab("Number of Products in Ad") +
+  ggtitle("Total Number of Products in an Ad", "Please note difference in scale compared to other graphic") +
+  scale_y_continuous(breaks = seq(0, 150, 50), limits = c(0, 150))
   # Number of products in add was very low in the beginning, very high in the 
   # middle, and then in 2021 it started low and has been increasing ever since.
 
+gg.n.overall
+  
 ## Page 1 summary stats
-
-gg.mean.perc.pg1 <- ggplot(s.date.pg1, aes(s.date, mean.perc)) +
-  geom_point() +
-  geom_smooth(method='lm')
-
-gg.mode.perc.pg1 <- ggplot(s.date.pg1, aes(s.date, mode.perc)) +
-  geom_point() +
-  geom_smooth(method='lm')
 
 gg.median.perc.pg1 <- ggplot(s.date.pg1, aes(s.date, median.perc)) +
   geom_point() +
-  geom_smooth(method='lm')
+  geom_smooth(method='lm') +
+  scale_x_date(labels = date_format("%b-%Y")) +
+  xlab("Ad Start Date") +
+  ylab("Median Percentage Off") +
+  ggtitle("Median Percentage Off - Page 1") +
+  scale_y_continuous(breaks = seq(0, 60, 10), limits = c(0, 60))
 
-grid.arrange(gg.mean.perc.pg1, gg.mode.perc.pg1, gg.median.perc.pg1, nrow = 1)
+gg.median.perc.pg1
+
   # All three page ones are a lot more all over the place.  General trendlines have
   # a negative slope, suggesting that the ads have been giving less off over time.
   # What is super interesting is to compare the range of percentages to the overall 
@@ -148,19 +141,26 @@ grid.arrange(gg.mean.perc.pg1, gg.mode.perc.pg1, gg.median.perc.pg1, nrow = 1)
 gg.n.pg1 <- ggplot(s.date.pg1, aes(s.date, n)) +
   geom_point() +
   geom_smooth(method='lm') +
-  ggtitle("Number of products on page 1")
+  scale_x_date(labels = date_format("%b-%Y")) +
+  ggtitle("Number of Products on Page 1") +
+  xlab("Ad Start Date") +
+  ylab("Number of Products") +
+  scale_y_continuous(breaks = seq(0, 12, 2), limits = c(0, 12))
+
+gg.n.pg1
 
 gg.n.pages <- ggplot(s.date.pages, aes(s.date, median.n)) +
   geom_point() +
   geom_smooth(method='lm') +
-  ggtitle("Median number of Products on a page")
+  scale_x_date(labels = date_format("%b-%Y")) +
+  xlab("Ad Start Date") +
+  ylab("Number of Products") +
+  ggtitle("Median number of Products on Any Page") +
+  scale_y_continuous(breaks = seq(0, 12, 2), limits = c(0, 12))
 
+gg.n.pages
 
-## Top Brands 
-wordcloud(data$BrandName)
-wordcloud((data %>% filter(p.num == 1))$BrandName)
-
-## Top ten brands overall
+## Top eight brands overall
 top.brands.overall <- data %>%
   filter(!is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
@@ -171,7 +171,7 @@ top.brands.overall <- data %>%
   kable(caption = "Top Brands Overall") %>%
   kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
 
-## Top ten brands on page 1
+## Top eight brands on page 1
 top.brands.pg1 <- data %>%
   filter(p.num == 1 & !is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
