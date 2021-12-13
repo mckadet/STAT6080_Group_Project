@@ -28,7 +28,8 @@ for (i in 1:length(data$OCR)) {
   # brand variable
   data$Brand[i] <- data$OCR[i]
   data$Brand[i] %>%
-    gregexpr("([[:space:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}?", .) %>%
+    gregexpr(paste0("([[:space:]]?[[:alpha:]]+[[:punct:]]?",
+    "[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}?"), .) %>%
     regmatches(data$OCR[i], .) -> data$Brand[i]
   data$BrandName[i] <- data$Brand[i]
   data$BrandName[[i]][1] %>% 
@@ -87,69 +88,83 @@ s.date.pages <- data %>%
   summarize(median.n = mean(n))
 
 # plotting s.data summary points for all pages and ad matrices
-gg.median.perc.overall <- ggplot(s.date.summary, aes(s.date, median.perc)) +
+gg.median.perc.overall <- ggplot(s.date.summary, 
+                                aes(s.date, median.perc)) +
   geom_point() +
-  geom_smooth(method='lm') +
+  geom_smooth(method = 'lm') +
   scale_x_date(labels = date_format("%b-%Y")) +
   ggtitle("Median Percentage Off of All Products") +
   xlab("Ad Start Date") +
   ylab("Median Percentage Off") +
-  scale_y_continuous(breaks = seq(0, 60, 10), limits = c(0, 60))
-  # basically no change.  Median is higher than the general mode.
+  scale_y_continuous(breaks = seq(0, 60, 10),
+                     limits = c(0, 60))
+  # basically no change
+  # median is higher than the general mode
 
 gg.median.perc.overall
 
-gg.n.overall <- ggplot(s.date.summary, aes(s.date, n)) +
+gg.n.overall <- ggplot(s.date.summary, 
+                       aes(s.date, n)) +
   geom_point() +
-  geom_smooth(method='lm') +
+  geom_smooth(method = 'lm') +
   scale_x_date(labels = date_format("%b-%Y")) +
   xlab("Ad Start Date") +
   ylab("Number of Products in Ad") +
-  ggtitle("Total Number of Products in an Ad", "Please note difference in scale compared to other graphic") +
-  scale_y_continuous(breaks = seq(0, 150, 50), limits = c(0, 150))
-  # Number of products in add was very low in the beginning, very high in the 
-  # middle, and then in 2021 it started low and has been increasing ever since.
+  ggtitle("Total Number of Products in an Ad", 
+          "Please note difference in scale compared to other graphic") +
+  scale_y_continuous(breaks = seq(0, 150, 50), 
+                     limits = c(0, 150))
+  # number of products in add was very low in the beginning
+  # very high in the middle
+  # in 2021 it started low and has been increasing ever since
 
 gg.n.overall
   
 # page 1 summary stats
-gg.median.perc.pg1 <- ggplot(s.date.pg1, aes(s.date, median.perc)) +
+gg.median.perc.pg1 <- ggplot(s.date.pg1,
+                             aes(s.date, median.perc)) +
   geom_point() +
-  geom_smooth(method='lm') +
+  geom_smooth(method = 'lm') +
   scale_x_date(labels = date_format("%b-%Y")) +
   xlab("Ad Start Date") +
   ylab("Median Percentage Off") +
   ggtitle("Median Percentage Off - Page 1") +
-  scale_y_continuous(breaks = seq(0, 60, 10), limits = c(0, 60))
+  scale_y_continuous(breaks = seq(0, 60, 10), 
+                     limits = c(0, 60))
 
 gg.median.perc.pg1
 
-  # All three page ones are a lot more all over the place.  General trendlines have
-  # a negative slope, suggesting that the ads have been giving less off over time.
-  # What is super interesting is to compare the range of percentages to the overall 
-  # ad and we can see here that the range goes up to 50% off a lot of the time, whereas
-  # the overall add went only up to around 30%, so it looks like the products that have 
-  # bigger markdowns are getting placed on page 1 normally.
+  # All three page ones are a lot more all over the place.  
+  # General trendlines have a negative slope
+  # This suggests that the ads have been giving less off over time.
+  # Interesting to compare the range of percentages to the overall ad
+  # We can see here that the range goes up to 50% off a lot of the time
+  # Whereas the overall add went only up to around 30%
+  # It looks like the products with bigger markdowns are placed on pg 1
 
-gg.n.pg1 <- ggplot(s.date.pg1, aes(s.date, n)) +
+gg.n.pg1 <- ggplot(s.date.pg1, 
+                   aes(s.date, n)) +
   geom_point() +
-  geom_smooth(method='lm') +
+  geom_smooth(method = 'lm') +
   scale_x_date(labels = date_format("%b-%Y")) +
   ggtitle("Number of Products on Page 1") +
   xlab("Ad Start Date") +
   ylab("Number of Products") +
-  scale_y_continuous(breaks = seq(0, 12, 2), limits = c(0, 12))
+  scale_y_continuous(breaks = seq(0, 12, 2), 
+                     limits = c(0, 12))
 
 gg.n.pg1
 
-gg.n.pages <- ggplot(s.date.pages, aes(s.date, median.n)) +
+gg.n.pages <- ggplot(s.date.pages, 
+                     aes(s.date, median.n)) +
   geom_point() +
-  geom_smooth(method='lm') +
+  geom_smooth(method = 'lm') +
   scale_x_date(labels = date_format("%b-%Y")) +
   xlab("Ad Start Date") +
   ylab("Number of Products") +
   ggtitle("Median number of Products on Any Page") +
-  scale_y_continuous(breaks = seq(0, 12, 2), limits = c(0, 12))
+  scale_y_continuous(breaks = seq(0, 12, 2), 
+                     limits = c(0, 12))
 
 gg.n.pages
 
@@ -162,7 +177,9 @@ top.brands.overall <- data %>%
   arrange(desc(n)) %>%
   top_n(8) %>%
   kable(caption = "Top Brands Overall") %>%
-  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+  kable_styling(latex_options = c("striped", 
+                                  "hold_position", 
+                                  "repeat_header"))
 
 # top eight brands on page 1
 top.brands.pg1 <- data %>%
@@ -173,12 +190,14 @@ top.brands.pg1 <- data %>%
   arrange(desc(n)) %>%
   top_n(8) %>%
   kable(caption = "Top Brands on Page 1") %>%
-  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
-  # What is interesting to note from the past two dataframes is that while some of 
-  # the top brands are the same, not all of them are.  Nabisco has by far the most
-  # ads, however they are only on the first page in the fourth spot.  Several brands,
-  # including Oscar Mayer, Coleson's Catch, Gillette, and Pillsbury are in the top
-  # ten overall, but do not appear in the first page top ten.  Another thing to
-  # note, which we would expect from other graphs, is that the ads on the first 
-  # page have a higher percentage off, so perhaps Gillette doesn't want to have
-  # as good of a deal, and thus is not featured prominently on the first pages.
+  kable_styling(latex_options = c("striped", 
+                                  "hold_position", 
+                                  "repeat_header"))
+  # Note: some of the top brands are the same, not all of them are.  
+  # Nabisco has by far the most ads
+  # However, they are only on the first page in the fourth spot.  
+  # Several brands: Oscar Mayer, Coleson's Catch, Gillette, and Pillsbury are 
+  # in the top ten overall, but do not appear in the first page top ten.  
+  # Note: ads on the first page have a higher percentage off
+  # Perhaps Gillette doesn't want to have as good of a deal
+  # thus is not featured prominently on the first pages.
