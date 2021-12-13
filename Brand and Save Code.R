@@ -5,50 +5,47 @@ library(wordcloud)
 library(knitr)
 library(kableExtra)
 
-## Creating Mode Function
+# creating mode function
 getmode <- function(v) {
   uniqv <- unique(v)
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
+# load in data frame of all images
 load("RData.Rda")
 data <- pivot.df
 
-## Initializing variables
+# initializing variables
 data$Brand <- ""
 data$Save <- ""
 data$BrandName <- ""
 data$perc <- ""
 
-## Variable Creation via for loop.
-
+# variable creation via for loop.
 for (i in 1:length(data$OCR)) {
-  # Cleaning up some weird characters I noticed (Ragan)
   data$OCR[i] %>%
     gsub("\\â€[[:space:]]", " ", .) -> data$OCR[i]
-  # Brand Variable
+  # brand variable
   data$Brand[i] <- data$OCR[i]
   data$Brand[i] %>%
-    # Added more to the regular expression to capture more special cases (Ragan)
-    gregexpr("([[:space:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}®", .) %>%
+    gregexpr("([[:space:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+[[:punct:]]?[[:alpha:]]+){1,3}?", .) %>%
     regmatches(data$OCR[i], .) -> data$Brand[i]
-  
   data$BrandName[i] <- data$Brand[i]
   data$BrandName[[i]][1] %>% 
-    gsub("®", "", .) %>% 
+    gsub("?", "", .) %>% 
     gsub("^ | $", "", .) -> data$BrandName[i]
   
-  # Save Variable 
+  # save variable 
   data$Save[i] <- data$OCR[i]
   data$Save[i] %>%
     gregexpr("[[:digit:]]?[[:digit:]][[:space:]]?\\%", .) %>%
     regmatches(data$OCR[i], .) -> data$Save[i]
   
-  # perc variable
+  # percent variable
   data$perc[i] <- data$Save[[i]][1] %>% gsub("%", "",.)
 }
 
-## Reformatting variables to the correct class
+# reformatting variables to the correct class
 data$s.date <- as.Date(data$s.date, format =  "%m-%d-%Y")
 data$e.date <- as.Date(data$e.date, format =  "%m-%d-%Y")
 data$p.num <- as.integer(data$p.num)
@@ -59,9 +56,7 @@ data$e.month <- as.integer(data$e.month)
 data$perc <- as.integer(data$perc)
 data$BrandName <- as.character(data$BrandName)
 
-getmode(data$perc) # 20% off is the most common
-
-## Creating a dataframe of summary statistics for s.date
+# creating a data frame of summary statistics for s.date
 s.date.summary <- data %>% 
   filter(!is.na(perc)) %>%
   group_by(s.date) %>%
@@ -70,7 +65,7 @@ s.date.summary <- data %>%
             median.perc = median(perc),
             n = n())
 
-## Creating a dataframe of summary statistics for page 1
+# creating a data frame of summary statistics for page 1
 s.date.pg1 <- data %>% 
   filter(p.num == 1) %>%
   filter(!is.na(perc)) %>%
@@ -80,7 +75,7 @@ s.date.pg1 <- data %>%
             median.perc = median(perc),
             n = n())
 
-## Creating a dataframe of summary statistics for individual pages
+# creating a data frame of summary statistics for individual pages
 s.date.pages <- data %>% 
   filter(!is.na(perc)) %>%
   group_by(s.date, p.num) %>%
@@ -91,8 +86,7 @@ s.date.pages <- data %>%
   group_by(s.date) %>%
   summarize(median.n = mean(n))
 
-## Plotting s.data summary points for all pages and ad matrices
-
+# plotting s.data summary points for all pages and ad matrices
 gg.median.perc.overall <- ggplot(s.date.summary, aes(s.date, median.perc)) +
   geom_point() +
   geom_smooth(method='lm') +
@@ -118,8 +112,7 @@ gg.n.overall <- ggplot(s.date.summary, aes(s.date, n)) +
 
 gg.n.overall
   
-## Page 1 summary stats
-
+# page 1 summary stats
 gg.median.perc.pg1 <- ggplot(s.date.pg1, aes(s.date, median.perc)) +
   geom_point() +
   geom_smooth(method='lm') +
@@ -160,7 +153,7 @@ gg.n.pages <- ggplot(s.date.pages, aes(s.date, median.n)) +
 
 gg.n.pages
 
-## Top eight brands overall
+# top eight brands overall
 top.brands.overall <- data %>%
   filter(!is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
@@ -171,7 +164,7 @@ top.brands.overall <- data %>%
   kable(caption = "Top Brands Overall") %>%
   kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
 
-## Top eight brands on page 1
+# top eight brands on page 1
 top.brands.pg1 <- data %>%
   filter(p.num == 1 & !is.na(BrandName) & !is.na(perc)) %>%
   group_by(BrandName) %>%
