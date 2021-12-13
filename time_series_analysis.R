@@ -10,7 +10,7 @@ library(reshape2)
 ## Methods
 get_trend_plot <- function(dataset, title, log = FALSE){
   if (log){
-    ggplot(dataset, aes(x=s.date, y = log(perc))) +
+    ggplot(dataset, aes(x = s.date, y = log(perc))) +
       geom_point() + 
       geom_line() +
       geom_smooth(method = "loess") +
@@ -20,7 +20,7 @@ get_trend_plot <- function(dataset, title, log = FALSE){
       theme_minimal()
   }
   else{
-    ggplot(dataset, aes(x=s.date, y = perc)) +
+    ggplot(dataset, aes(x = s.date, y = perc)) +
       geom_point() + 
       geom_line() +
       geom_smooth(method = "loess") +
@@ -122,12 +122,13 @@ ggplot(data = ACF.dframe, aes(x = Lag, y = ACF)) +
 
 
 ## Analysis for Nabisco using time series
-n.ts <- ts(data = n.recent$perc, start=c(1,1), frequency=1)
+n.ts <- ts(data = n.recent$perc, start = c(1, 1), frequency = 1)
 X <- model.matrix(n.ts ~ -1 + s.date, data = n.recent)
 
 # Create Sarima Model
-auto.arima(n.ts, max.p=1, max.q=1, max.P=1, max.Q=1, d=0, D=0, ic="aic", stepwise=FALSE, xreg=X)
-my.sarima.model <- Arima(n.ts, order = c(2,0,0), seasonal=c(0,1,1), xreg = X)
+auto.arima(n.ts, max.p = 1, max.q = 1, max.P = 1, max.Q = 1, d = 0, 
+           D = 0, ic = "aic", stepwise = FALSE, xreg = X)
+my.sarima.model <- Arima(n.ts, order = c(2, 0, 0), seasonal = c(0, 1, 1), xreg = X)
 
 
 ## Check Assumptions and fit model
@@ -140,39 +141,41 @@ ggplot(n.recent, aes(x = s.date, y = perc)) +
   geom_smooth(method="lm")
 
 # Check Normality and Independence
-my.ACF2 <- acf(resids, lag.max=60)
+my.ACF2 <- acf(resids, lag.max = 60)
 ACF.dframe <- data.frame(Lag = my.ACF2$lag, ACF = my.ACF2$acf)
 ggplot(data = ACF.dframe, aes(x = Lag, y = ACF)) + 
   geom_col() + 
   ggtitle("ACF Plot for Time Series Model")
 
 # Equal Variance
-ggplot(n.recent, aes(x=fitted, y=resids)) + geom_point() + 
+ggplot(n.recent, aes(x = fitted, y = resids)) + geom_point() + 
   ggtitle("Standardized Residuals vs Fitted Values for Time Series Model") + 
-  xlab("Fitted Values") + ylab("Standardized Resids") + theme_bw()
+  xlab("Fitted Values") + 
+  ylab("Standardized Resids") + 
+  theme_bw()
 
 # Normality
 dens <- density(resids)
-plot(dens, xlab = "Decorrelated Residuals",main = "Density Plot of Decorrelated Resids")
+plot(dens, xlab = "Decorrelated Residuals", main = "Density Plot of Decorrelated Resids")
 
 
 
 ## Validate Predictions
 #Split into test and training set
 n.test <- tail(n.recent, n = 10)
-n.train <- n.recent[1:(nrow(n.recent) - 10),]
+n.train <- n.recent[1:(nrow(n.recent) - 10), ]
 
 X.test <- tail(X, n = 10)
 X.train <- head(X, n = length(X) - 10)
 
 # Fit new Model
-new.ts <- ts(data = n.train$perc, start=c(1,1), frequency=10)
-train.model <- Arima(new.ts, order=c(2,0,0), seasonal=c(0,1,1), xreg = X.train)
+new.ts <- ts(data = n.train$perc, start = c(1, 1), frequency = 10)
+train.model <- Arima(new.ts, order = c(2, 0, 0), seasonal = c(0, 1, 1), xreg = X.train)
 preds <- forecast(train.model, h = 10, xreg = X.test, level = .95)
-plot(preds, main="Predicted Percent Off",ylab = "Percent Off", xlab = "Date")
+plot(preds, main="Predicted Percent Off", ylab = "Percent Off", xlab = "Date")
 
 # Calculate RPMSE and coverage
-rpmse <- (log(n.test[['perc']]) - preds$mean)^2 %>% mean() %>% sqrt()
+rpmse <- (log(n.test[['perc']]) - preds$mean) ^ 2 %>% mean() %>% sqrt()
 rpmse
 coverage <- ((log(n.test[['perc']]) > preds$lower) & (log(n.test[['perc']]) < preds$upper)) %>% mean()
 coverage
@@ -199,14 +202,18 @@ newData <- melt(list(kr.2019 = kr.2019, kr.2020 = kr.2020, kr.2021 = kr.2021), i
 
 
 # Plot years
-ggplot(newData, aes(x = s.date, y = value, colour = L1)) + geom_point() + 
+ggplot(newData, aes(x = s.date, y = value, colour = L1)) + 
+  geom_point() + 
   geom_smooth(method = "lm") +
   geom_line() +
-  # geom_line(aes(color = variable, linetype = variable)) + 
-  scale_color_manual(values = c("darkred", "steelblue", "green")) + theme_minimal()
+  scale_color_manual(values = c("darkred", "steelblue", "green")) + 
+  theme_minimal()
 
-ggplot(kr.recent, aes(x = s.date, y = perc)) + geom_point(position = position_jitter()) + 
+ggplot(kr.recent, aes(x = s.date, y = perc)) +
+  geom_point(position = position_jitter()) + 
   geom_smooth(method = "loess") +
   ggtitle("Percent Off Offered for Kraft in 2021") +
-  theme_minimal()
+  xlab("Date") +
+  ylab("Percent Off") +
+  theme_bw()
   
