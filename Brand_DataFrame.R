@@ -98,8 +98,6 @@ gg.median.perc.overall <- ggplot(s.date.summary,
   ylab("Median Percentage Off") +
   scale_y_continuous(breaks = seq(0, 60, 10),
                      limits = c(0, 60))
-  # basically no change
-  # median is higher than the general mode
 
 gg.median.perc.overall
 
@@ -114,9 +112,6 @@ gg.n.overall <- ggplot(s.date.summary,
           "Please note difference in scale compared to other graphic") +
   scale_y_continuous(breaks = seq(0, 150, 50), 
                      limits = c(0, 150))
-  # number of products in add was very low in the beginning
-  # very high in the middle
-  # in 2021 it started low and has been increasing ever since
 
 gg.n.overall
   
@@ -133,14 +128,6 @@ gg.median.perc.pg1 <- ggplot(s.date.pg1,
                      limits = c(0, 60))
 
 gg.median.perc.pg1
-
-  # All three page ones are a lot more all over the place.  
-  # General trendlines have a negative slope
-  # This suggests that the ads have been giving less off over time.
-  # Interesting to compare the range of percentages to the overall ad
-  # We can see here that the range goes up to 50% off a lot of the time
-  # Whereas the overall add went only up to around 30%
-  # It looks like the products with bigger markdowns are placed on pg 1
 
 gg.n.pg1 <- ggplot(s.date.pg1, 
                    aes(s.date, n)) +
@@ -193,11 +180,3 @@ top.brands.pg1 <- data %>%
   kable_styling(latex_options = c("striped", 
                                   "hold_position", 
                                   "repeat_header"))
-  # Note: some of the top brands are the same, not all of them are.  
-  # Nabisco has by far the most ads
-  # However, they are only on the first page in the fourth spot.  
-  # Several brands: Oscar Mayer, Coleson's Catch, Gillette, and Pillsbury are 
-  # in the top ten overall, but do not appear in the first page top ten.  
-  # Note: ads on the first page have a higher percentage off
-  # Perhaps Gillette doesn't want to have as good of a deal
-  # thus is not featured prominently on the first pages.
